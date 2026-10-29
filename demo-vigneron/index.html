@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Domaine des Murets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+*{box-sizing:border-box}body{margin:0}
+/* Layout: terraced bands, like the Lavaux murets — each section a step down the slope */
+:root{
+  --bg:#eef0ee; --surface:#ffffff; --fg:#1b2a30; --muted:#56656b;
+  --lake:#24546b; --gold:#9c8a2e; --line:#cfd6d4;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a1d;--surface:#1a2428;--fg:#e6ecea;--muted:#9aa9ad;--lake:#7fb6cf;--gold:#d2bd5a;--line:#2c3a3f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121a1d;--surface:#1a2428;--fg:#e6ecea;--muted:#9aa9ad;--lake:#7fb6cf;--gold:#d2bd5a;--line:#2c3a3f;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px;flex-wrap:wrap}
+.logo{font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.01em}
+.logo small{display:block;font-weight:500;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+nav{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--display);font-size:.9rem}
+nav a{color:var(--fg);text-decoration:none}
+nav a:hover,nav a:focus-visible{color:var(--lake);text-decoration:underline}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{font:600 .8rem var(--display);background:none;border:0;color:var(--muted);padding:6px 12px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--lake);color:var(--bg)}
+.lang button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.hero{padding-block:56px 40px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:end}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,6vw,4rem);line-height:1.02;margin:0;text-wrap:balance}
+.hero p{color:var(--muted);max-width:44ch;margin:16px 0 0}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--fg)}
+.facts div{padding:12px 0;border-bottom:1px solid var(--line)}
+.facts dt{font:500 .72rem var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:2px 0 0;font:700 1.4rem var(--display);font-variant-numeric:tabular-nums}
+.terraces{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:8px}
+.terraces span{height:10px;background:var(--gold);opacity:.25}
+.terraces span:nth-child(2){opacity:.4}.terraces span:nth-child(3){opacity:.55}.terraces span:nth-child(4){opacity:.7}.terraces span:nth-child(5){opacity:.85}.terraces span:nth-child(6){opacity:1}
+section{padding-block:40px;border-top:1px solid var(--line)}
+h2{font-family:var(--display);font-size:1.6rem;margin:0 0 20px;text-wrap:balance}
+.eyebrow{font:500 .75rem var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 6px}
+.wines{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.wine{background:var(--surface);border:1px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.wine h3{font-family:var(--display);margin:0;font-size:1.15rem}
+.wine .ao{font:500 .78rem var(--display);color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.wine p{margin:0;font-size:.95rem;flex:1}
+.wine .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.price{font:700 1.1rem var(--display);font-variant-numeric:tabular-nums}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:30px;height:30px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:700 1rem var(--display);cursor:pointer}
+.qty button:focus-visible{outline:2px solid var(--lake)}
+.qty output{min-width:2ch;text-align:center;font-variant-numeric:tabular-nums}
+.cart{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--line);padding:16px 20px}
+.cart strong{font-family:var(--display);font-variant-numeric:tabular-nums}
+.btn{font:700 .95rem var(--display);background:var(--lake);color:var(--bg);border:0;padding:12px 18px;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+td{padding:8px 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;font-family:var(--display)}
+.note{color:var(--muted);font-size:.9rem}
+.toast{margin-top:12px;color:var(--lake);font-family:var(--display)}
+footer{padding-block:28px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+.demo{background:var(--gold);color:var(--bg);font:600 .8rem var(--display);text-align:center;padding:6px 16px}
+@media (max-width:760px){.hero,.two{grid-template-columns:1fr}.hero{padding-block:32px 24px}nav{display:none}}
+@media (prefers-reduced-motion:no-preference){.wine{transition:transform .15s}.wine:hover{transform:translateY(-2px)}}
+</style>
+</head>
+<body>
+
+<div class="demo" data-i18n="demo">Site de démonstration — domaine fictif</div>
+<header><div class="wrap bar">
+  <div class="logo">Domaine des Murets<small>Epesses · Lavaux AOC</small></div>
+  <nav><a href="#vins" data-i18n="nav1">Nos vins</a><a href="#caveau" data-i18n="nav2">Caveau</a><a href="#contact" data-i18n="nav3">Contact</a></nav>
+  <div class="lang" role="group" aria-label="Langue">
+    <button type="button" id="l-fr" data-l="fr" aria-pressed="true">FR</button>
+    <button type="button" id="l-de" data-l="de" aria-pressed="false">DE</button>
+    <button type="button" id="l-en" data-l="en" aria-pressed="false">EN</button>
+  </div>
+</div></header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <p class="eyebrow" data-i18n="eyebrow">Vignerons-encaveurs depuis 1921</p>
+      <h1 data-i18n="h1">Le chasselas des terrasses, du cep au verre.</h1>
+      <p data-i18n="lead">Quatre générations sur 3,2 hectares de murets en pierre sèche, face au Léman. Commandez en ligne, livraison dans toute la Suisse.</p>
+    </div>
+    <div>
+      <dl class="facts">
+        <div><dt data-i18n="f1">Surface</dt><dd>3,2 ha</dd></div>
+        <div><dt data-i18n="f2">Cépages</dt><dd>5</dd></div>
+        <div><dt data-i18n="f3">Altitude</dt><dd>380–520 m</dd></div>
+      </dl>
+      <div class="terraces" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <section id="vins">
+    <p class="eyebrow" data-i18n="e2">Millésime 2025</p>
+    <h2 data-i18n="h2">Nos vins</h2>
+    <div class="wines" id="wines"></div>
+    <div class="cart">
+      <span><span data-i18n="total">Total</span> : <strong id="total">CHF 0.00</strong> <span class="note" data-i18n="ship">· livraison offerte dès 24 bouteilles</span></span>
+      <button class="btn" type="button" id="order" data-i18n="order">Commander</button>
+    </div>
+    <p class="toast" id="toast" hidden></p>
+  </section>
+
+  <section id="caveau" class="two">
+    <div>
+      <p class="eyebrow" data-i18n="e3">Dégustation</p>
+      <h2 data-i18n="h3">Le caveau</h2>
+      <table>
+        <tr><td data-i18n="d1">Jeudi</td><td>17h – 20h</td></tr>
+        <tr><td data-i18n="d2">Vendredi</td><td>17h – 20h</td></tr>
+        <tr><td data-i18n="d3">Samedi</td><td>10h – 13h</td></tr>
+        <tr><td data-i18n="d4">Autres jours</td><td data-i18n="d5">sur rendez-vous</td></tr>
+      </table>
+    </div>
+    <div id="contact">
+      <p class="eyebrow" data-i18n="e4">Nous trouver</p>
+      <h2 data-i18n="h4">Contact</h2>
+      <p>Chemin des Murets 4<br>1098 Epesses<br>021 000 00 00</p>
+      <p class="note" data-i18n="train">À 6 minutes à pied de la gare d'Epesses.</p>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap" data-i18n="foot">Domaine fictif créé pour démontrer un site de vigneron bilingue avec commande en ligne.</div></footer>
+
+<script>
+const WINES=[
+ {k:"w1",ao:"Epesses AOC",p:16.5},
+ {k:"w2",ao:"Calamin Grand Cru",p:24},
+ {k:"w3",ao:"Lavaux AOC",p:21},
+ {k:"w4",ao:"Lavaux AOC",p:28}
+];
+const T={
+fr:{demo:"Site de démonstration · domaine fictif",nav1:"Nos vins",nav2:"Caveau",nav3:"Contact",eyebrow:"Vignerons-encaveurs depuis 1921",h1:"Le chasselas des terrasses, du cep au verre.",lead:"Quatre générations sur 3,2 hectares de murets en pierre sèche, face au Léman. Commandez en ligne, livraison dans toute la Suisse.",f1:"Surface",f2:"Cépages",f3:"Altitude",e2:"Millésime 2025",h2:"Nos vins",total:"Total",ship:"· livraison offerte dès 24 bouteilles",order:"Commander",e3:"Dégustation",h3:"Le caveau",d1:"Jeudi",d2:"Vendredi",d3:"Samedi",d4:"Autres jours",d5:"sur rendez-vous",e4:"Nous trouver",h4:"Contact",train:"À 6 minutes à pied de la gare d'Epesses.",foot:"Domaine fictif créé pour démontrer un site de vigneron bilingue avec commande en ligne.",
+ w1:["Chasselas Les Murets","Floral, fin, une pointe de pierre à fusil. L'apéritif du lac."],w2:["Calamin","Plus ample, notes de miel et de tilleul. Pour les filets de perche."],w3:["Gamay de la Tour","Fruité, souple, cerise noire. Se boit légèrement frais."],w4:["Pinot noir Réserve","Élevé 12 mois en fût. Épices douces, belle longueur."],
+ bottle:"70 cl",empty:"Ajoutez au moins une bouteille.",ok:n=>`Démo : commande de ${n} bouteille(s) prête. Sur le vrai site, le domaine reçoit un e-mail.`},
+de:{demo:"Demo-Website · fiktives Weingut",nav1:"Unsere Weine",nav2:"Weinkeller",nav3:"Kontakt",eyebrow:"Selbstkelternde Winzer seit 1921",h1:"Chasselas von den Terrassen, vom Rebstock ins Glas.",lead:"Vier Generationen auf 3,2 Hektar Trockenmauern mit Blick auf den Genfersee. Online bestellen, Lieferung in die ganze Schweiz.",f1:"Fläche",f2:"Rebsorten",f3:"Höhe",e2:"Jahrgang 2025",h2:"Unsere Weine",total:"Total",ship:"· Gratislieferung ab 24 Flaschen",order:"Bestellen",e3:"Degustation",h3:"Der Weinkeller",d1:"Donnerstag",d2:"Freitag",d3:"Samstag",d4:"Andere Tage",d5:"nach Vereinbarung",e4:"So finden Sie uns",h4:"Kontakt",train:"6 Gehminuten vom Bahnhof Epesses.",foot:"Fiktives Weingut, erstellt als Beispiel für eine zweisprachige Winzer-Website mit Online-Bestellung.",
+ w1:["Chasselas Les Murets","Blumig, fein, ein Hauch Feuerstein. Der Apéro-Wein vom See."],w2:["Calamin","Voller, Noten von Honig und Lindenblüten. Zu Eglifilets."],w3:["Gamay de la Tour","Fruchtig, geschmeidig, schwarze Kirsche. Leicht gekühlt servieren."],w4:["Pinot noir Réserve","12 Monate im Holzfass. Sanfte Würze, langer Abgang."],
+ bottle:"70 cl",empty:"Bitte mindestens eine Flasche wählen.",ok:n=>`Demo: Bestellung über ${n} Flasche(n) bereit. Auf der echten Website erhält das Weingut eine E-Mail.`},
+en:{demo:"Demo website · fictional estate",nav1:"Our wines",nav2:"Cellar",nav3:"Contact",eyebrow:"Winegrowers since 1921",h1:"Terrace Chasselas, from vine to glass.",lead:"Four generations on 3.2 hectares of dry-stone terraces facing Lake Geneva. Order online, delivery across Switzerland.",f1:"Area",f2:"Grapes",f3:"Altitude",e2:"2025 vintage",h2:"Our wines",total:"Total",ship:"· free delivery from 24 bottles",order:"Order",e3:"Tasting",h3:"The cellar",d1:"Thursday",d2:"Friday",d3:"Saturday",d4:"Other days",d5:"by appointment",e4:"Find us",h4:"Contact",train:"6 minutes' walk from Epesses station.",foot:"Fictional estate built to demonstrate a bilingual winegrower website with online ordering.",
+ w1:["Chasselas Les Murets","Floral and fine with a flinty edge. The lakeside aperitif."],w2:["Calamin","Rounder, with honey and linden notes. Perfect with perch fillets."],w3:["Gamay de la Tour","Fruity and supple, black cherry. Serve slightly chilled."],w4:["Pinot noir Réserve","12 months in oak. Gentle spice, long finish."],
+ bottle:"70 cl",empty:"Add at least one bottle.",ok:n=>`Demo: order for ${n} bottle(s) ready. On the real site, the estate receives an email.`}
+};
+let lang="fr";const q={};
+function chf(v){return "CHF "+v.toFixed(2)}
+function render(){
+  const t=T[lang];document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const v=t[el.dataset.i18n];if(typeof v==="string")el.textContent=v});
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===lang));
+  const box=document.getElementById("wines");box.innerHTML="";
+  WINES.forEach(w=>{const [n,d]=t[w.k];q[w.k]=q[w.k]||0;
+    const c=document.createElement("article");c.className="wine";
+    c.innerHTML=`<span class="ao">${w.ao}</span><h3>${n}</h3><p>${d}</p><div class="row"><span class="price">${chf(w.p)} <span class="note">/ ${t.bottle}</span></span><span class="qty"><button type="button" aria-label="−" data-k="${w.k}" data-d="-1">−</button><output id="q-${w.k}">${q[w.k]}</output><button type="button" aria-label="+" data-k="${w.k}" data-d="1">+</button></span></div>`;
+    box.appendChild(c)});
+  total();
+}
+function total(){let s=0;WINES.forEach(w=>s+=q[w.k]*w.p);document.getElementById("total").textContent=chf(s)}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.l){lang=b.dataset.l;try{localStorage.setItem("lang",lang)}catch(_){}render();return}
+  if(b.dataset.k){q[b.dataset.k]=Math.max(0,q[b.dataset.k]+Number(b.dataset.d));document.getElementById("q-"+b.dataset.k).textContent=q[b.dataset.k];total();return}
+  if(b.id==="order"){const n=Object.values(q).reduce((a,c)=>a+c,0);const el=document.getElementById("toast");el.hidden=false;el.textContent=n?T[lang].ok(n):T[lang].empty}
+});
+try{const s=localStorage.getItem("lang");if(s&&T[s])lang=s}catch(_){}
+render();
+</script>
+</body>
+</html>
